@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "515674357675",
+    "project_id": "requisition-system-finale",
+    "storage_bucket": "requisition-system-finale.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515674357675:android:99f82e129ec5f929f89cee",
+        "android_client_info": {
+          "package_name": "com.sys.requistion.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyrF5_LP3ISZaIiaPszeRKXyN7IbhyzoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
