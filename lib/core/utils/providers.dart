@@ -14,12 +14,10 @@ import '../../global/global.dart';
 class ProviderUtils {
   static final staffProfilePicProvider = StateProvider<String?>((ref) => null);
 
-  static final staffProvider =
-      StateNotifierProvider<StaffNotifier, AsyncValue<List<UserProfile>>>(
+  static final staffProvider = StateNotifierProvider<StaffNotifier, AsyncValue<List<UserProfile>>>(
           (ref) {
-    return StaffNotifier();
-  });
-
+        return StaffNotifier();
+      });
 
   static final notesProvider = StateNotifierProvider.family<NotesNotifier,
       AsyncValue<List<Note>>, String>((ref, profileEmail) {
@@ -35,7 +33,6 @@ class ProviderUtils {
     return ProfileNotifier(profileEmail: profileEmail);
   });
 
-
   static final requisitions = StateNotifierProvider.family<
       RequisitionsNotifier,
       AsyncValue<List<Requisition>>,
@@ -43,12 +40,19 @@ class ProviderUtils {
     return RequisitionsNotifier(profileEmail: profileEmail);
   });
 
+  // New provider for streaming all requisitions
+  static final allRequisitionsProvider = StateNotifierProvider<RequisitionsNotifier,
+      AsyncValue<List<Requisition>>>((ref) {
+    final notifier = RequisitionsNotifier(profileEmail: '');
+    notifier.streamAllRequisitions();
+    return notifier;
+  });
 
   static final searchProvider =
-      StateNotifierProvider<SearchStaffNotifier, List<UserProfile>>((ref) {
+  StateNotifierProvider<SearchStaffNotifier, List<UserProfile>>((ref) {
     return SearchStaffNotifier();
   });
-  
+
   static final userRoleProvider = StateProvider<UserRole?>((ref) {
     return null;
   });

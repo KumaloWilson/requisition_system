@@ -23,14 +23,21 @@ class RequisitionServices {
   
   static Stream<List<Requisition>> streamRequisitionsByEmail(
       {required String email}) {
-    final now = DateTime.now();
-   
+
     return FirebaseFirestore.instance
         .collection('requisitions')
-        .where('addedBy', isEqualTo: email)
+        .where('createdBy', isEqualTo: email)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) => Requisition.fromJson(doc.data())).toList();
+    });
+  }
+
+  static Stream<List<Requisition>> streamAllRequisitions() {
+    return FirebaseFirestore.instance.collection('requisitions').snapshots().map((snapshot) {
+      return snapshot.docs
+          .map((doc) => Requisition.fromJson(doc.data()))
+          .toList();
     });
   }
 

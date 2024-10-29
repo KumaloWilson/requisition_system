@@ -127,7 +127,7 @@ class _AddRequisitionState extends State<AddRequisition> {
                     payee: _payeeController.text,
                     reason: _reasonController.text,
                     amount: double.tryParse(_amountController.text) ?? 0.0,
-                    date: DateTime.parse(_dateController.text),
+                    date: DateFormat('yyyy/MM/dd').parse(_dateController.text),
                     approvals: [],
                     preparedBy: widget.selectedUser.name!,
                     checkedBy: '',  // To be filled in as needed

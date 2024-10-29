@@ -27,6 +27,21 @@ class RequisitionsNotifier extends StateNotifier<AsyncValue<List<Requisition>>> 
     );
   }
 
+  // New method to stream all requisitions in real-time
+  void streamAllRequisitions() {
+    _reqSubscription?.cancel();
+
+    _reqSubscription = RequisitionServices.streamAllRequisitions().listen(
+          (requisitions) {
+        state = AsyncValue.data(requisitions);
+      },
+      onError: (error) {
+        state = AsyncValue.error(
+            'Failed to fetch all requisitions: $error', StackTrace.current);
+      },
+    );
+  }
+
   // Cleanup: Cancel the stream subscription when no longer needed
   @override
   void dispose() {
