@@ -75,7 +75,7 @@ class _ProfileScreenState extends ConsumerState<UserProfileScreen>
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: CachedNetworkImage(
-                              imageUrl: selectedUserProfile.profilePicture!,
+                              imageUrl: '',
                               placeholder: (context, url) => Skeletonizer(
                                 enabled: true,
                                 child: SizedBox(

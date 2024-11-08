@@ -81,10 +81,6 @@ class AuthServices {
             if (userCredential.user != null) {
               await userCredential.user!.updateProfile(
                 displayName: userDoc.data!.name,
-                photoURL: userDoc.data!.profilePicture!.isNotEmpty ||
-                        userDoc.data!.profilePicture != null
-                    ? userDoc.data!.profilePicture
-                    : null,
               );
 
               await userCredential.user!.sendEmailVerification();

@@ -9,8 +9,6 @@ import '../services/storage_services.dart';
 class AddUserHelper {
   static Future<void> validateAndSubmitForm({
     required UserProfile userProfile,
-    dynamic pickedImageBytes,
-    String? fileName,
   }) async {
     // Validate Email
     if (!GetUtils.isEmail(userProfile.email!)) {
@@ -32,40 +30,6 @@ class AddUserHelper {
       return;
     }
 
-    if (userProfile.city!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'City is required.');
-      return;
-    }
-
-    if (userProfile.state!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'State is required.');
-      return;
-    }
-
-    if (userProfile.country!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'Country is required.');
-      return;
-    }
-
-    // Validate Address
-    if (userProfile.address!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'Address is required.');
-      return;
-    }
-
-    // Validate Previous Employer
-    if (userProfile.previousEmployer!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(
-          message: 'Previous Employer is required.');
-      return;
-    }
-
-    // Validate Contact Information
-    if (userProfile.contactInformation!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(
-          message: 'Contact Information is required.');
-      return;
-    }
 
     // Validate Role
     if (userProfile.role!.isEmpty) {
@@ -80,28 +44,6 @@ class AddUserHelper {
       ),
       barrierDismissible: false,
     );
-
-    // Upload profile picture if picked
-    String? profilePictureUrl;
-    if (pickedImageBytes != null && fileName != null) {
-      final uploadResponse = await StorageServices.uploadDocumentAsUint8List(
-        location: 'users/dps',
-        uploadfile: pickedImageBytes,
-        fileName: fileName,
-      );
-
-      if (!uploadResponse.success) {
-        if (!Get.isSnackbarOpen) Get.back();
-        CustomSnackBar.showErrorSnackbar(
-            message: uploadResponse.message ??
-                'Failed to upload image, Please try again');
-        return;
-      }
-
-      profilePictureUrl = uploadResponse.data;
-    }
-
-    userProfile = userProfile.copyWith(profilePicture: profilePictureUrl);
 
     await StaffServices.addStuffToFirebase(userProfile: userProfile)
         .then((response) {
@@ -223,41 +165,6 @@ class AddUserHelper {
     // Validate Name
     if (userProfile.name!.isEmpty) {
       CustomSnackBar.showErrorSnackbar(message: 'Name is required.');
-      return;
-    }
-
-    if (userProfile.city!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'City is required.');
-      return;
-    }
-
-    if (userProfile.state!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'State is required.');
-      return;
-    }
-
-    if (userProfile.country!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'Country is required.');
-      return;
-    }
-
-    // Validate Address
-    if (userProfile.address!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(message: 'Address is required.');
-      return;
-    }
-
-    // Validate Previous Employer
-    if (userProfile.previousEmployer!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(
-          message: 'Previous Employer is required.');
-      return;
-    }
-
-    // Validate Contact Information
-    if (userProfile.contactInformation!.isEmpty) {
-      CustomSnackBar.showErrorSnackbar(
-          message: 'Contact Information is required.');
       return;
     }
 

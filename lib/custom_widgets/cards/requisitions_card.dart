@@ -1,15 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:req_sys_finale/core/routes/routes.dart';
 import 'package:req_sys_finale/features/home/model/requisition.dart';
+import 'package:req_sys_finale/features/manage_profile/models/user_profile.dart';
+import 'package:req_sys_finale/features/requisition_details/helper/requisition_helper.dart';
 
-class RequisitionCard extends StatelessWidget {
+import '../../core/utils/providers.dart';
+
+class RequisitionCard extends ConsumerWidget {
   final Requisition requisition;
-  const RequisitionCard({super.key, required this.requisition});
+  const RequisitionCard({super.key, required this.requisition,});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userProfileAsync = ref.watch(ProviderUtils.profileProvider(FirebaseAuth.instance.currentUser!.email!));
+
     return GestureDetector(
       onTap: () {
-
+        Get.toNamed(RoutesHelper.requisitionDetailsScreen, arguments: [requisition, userProfileAsync.value]);
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -35,9 +45,15 @@ class RequisitionCard extends StatelessWidget {
                   buildPopUpOption(
                     title: 'View Requisition',
                     icon: Icons.remove_red_eye_outlined,
-                    value: 0,
                     onTap: () {
 
+                    },
+                  ),
+                  buildPopUpOption(
+                    title: 'Save As PDF',
+                    icon: Icons.download,
+                    onTap: () async{
+                      await RequisitionHelper.generateRequisitionPdf(requisition);
                     },
                   ),
                 ],
@@ -53,12 +69,10 @@ class RequisitionCard extends StatelessWidget {
   dynamic buildPopUpOption({
     required String title,
     required IconData icon,
-    required int value,
     required void Function() onTap,
   }) {
     return PopupMenuItem<int>(
       onTap: onTap,
-      value: value,
       child: Row(
         children: [
           Icon(icon, color: Colors.black54),

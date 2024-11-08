@@ -6,6 +6,7 @@ import 'package:req_sys_finale/features/auth/pages/forgot_password.dart';
 import 'package:req_sys_finale/features/home/pages/admin_home_screen.dart';
 import 'package:req_sys_finale/features/home/pages/user_home_screen.dart';
 import 'package:req_sys_finale/features/manage_profile/pages/manage_profile_screen.dart';
+import 'package:req_sys_finale/features/requisition_details/pages/requisition_details.dart';
 import 'package:req_sys_finale/features/shift/pages/add_user_shift.dart';
 import 'package:req_sys_finale/features/shift/pages/edit_shift.dart';
 import 'package:req_sys_finale/features/welcome/pages/onboard.dart';
@@ -47,6 +48,7 @@ class RoutesHelper {
   static String addRequisitionScreen = '/addRequisition';
   static String addUserFeedbackScreen = '/addFeedback';
   static String seeUserFeedbackScreen = '/seeUserFeedback';
+  static String requisitionDetailsScreen = '/requsitionDetails';
 
   static List<GetPage> routes = [
     GetPage(name: welcomeScreen, page: () => WelcomePage()),
@@ -102,6 +104,15 @@ class RoutesHelper {
           final UserProfile selectedUser = args[0] as UserProfile;
 
           return AddNotesScreen(selectedUser: selectedUser);
+        }),
+    GetPage(
+        name: requisitionDetailsScreen,
+        page: () {
+          final args = Get.arguments as List;
+          final Requisition selectedRequisition = args[0] as Requisition;
+          final UserProfile currentUser = args[1] as UserProfile;
+
+          return RequisitionDetailsScreen(requisition: selectedRequisition, userProfile: currentUser,);
         }),
     GetPage(
         name: editShiftScreen,

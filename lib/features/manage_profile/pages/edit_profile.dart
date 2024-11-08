@@ -18,10 +18,6 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
-  late TextEditingController _addressController;
-  late TextEditingController _cityController;
-  late TextEditingController _stateController;
-  late TextEditingController _countryController;
   late String selectedRole;
 
   @override
@@ -31,12 +27,6 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
     _emailController = TextEditingController(text: widget.userProfile.email);
     _phoneController =
         TextEditingController(text: widget.userProfile.phoneNumber);
-    _addressController =
-        TextEditingController(text: widget.userProfile.address);
-    _cityController = TextEditingController(text: widget.userProfile.city);
-    _stateController = TextEditingController(text: widget.userProfile.state);
-    _countryController =
-        TextEditingController(text: widget.userProfile.country);
     selectedRole = widget.userProfile.role!;
   }
 
@@ -45,10 +35,6 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _addressController.dispose();
-    _cityController.dispose();
-    _stateController.dispose();
-    _countryController.dispose();
     super.dispose();
   }
 
@@ -127,41 +113,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            CustomTextField(
-              controller: _addressController,
-              prefixIcon: const Icon(
-                Icons.home,
-                color: Colors.grey,
-              ),
-              labelText: 'Address',
-            ),
-            const SizedBox(height: 10),
-            CustomTextField(
-              controller: _cityController,
-              prefixIcon: const Icon(
-                Icons.home,
-                color: Colors.grey,
-              ),
-              labelText: 'City',
-            ),
-            const SizedBox(height: 10),
-            CustomTextField(
-              controller: _stateController,
-              prefixIcon: const Icon(
-                Icons.home,
-                color: Colors.grey,
-              ),
-              labelText: 'State',
-            ),
-            const SizedBox(height: 10),
-            CustomTextField(
-              controller: _countryController,
-              prefixIcon: const Icon(
-                Icons.home,
-                color: Colors.grey,
-              ),
-              labelText: 'Country',
-            ),
+
             const SizedBox(height: 10),
             CustomDropDown(
               prefixIcon: Icons.person,
@@ -181,10 +133,6 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                   name: _nameController.text,
                   email: _emailController.text,
                   phoneNumber: _phoneController.text,
-                  address: _addressController.text,
-                  city: _cityController.text,
-                  state: _stateController.text,
-                  country: _countryController.text,
                   role: selectedRole,
                 );
 

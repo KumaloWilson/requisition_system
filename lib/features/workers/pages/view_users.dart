@@ -47,7 +47,7 @@ class AdminViewUsers extends ConsumerWidget {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: CachedNetworkImage(
-                      imageUrl: user.profilePicture ?? '',
+                      imageUrl: '',
                       placeholder: (context, url) =>
                           const CircularProgressIndicator(),
                       errorWidget: (context, url, error) =>

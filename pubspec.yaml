@@ -44,6 +44,7 @@ dependencies:
   json_annotation: ^4.9.0
   tap_to_expand: ^0.7.2
   tuple: ^2.0.2
+  pdf: ^3.11.1
 
 dev_dependencies:
   flutter_test:

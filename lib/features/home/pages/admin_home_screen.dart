@@ -87,7 +87,7 @@ class _AdminHomeScreenState extends ConsumerState<AdminHomeScreen>
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Image.network(
-                        userProfileAsync.value!.profilePicture ?? '',
+                        '',
                         fit: BoxFit.cover,
                       ),
                     ),

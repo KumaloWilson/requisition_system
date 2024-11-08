@@ -1,6 +1,7 @@
 import 'package:req_sys_finale/custom_widgets/cards/requisitions_card.dart';
 import 'package:req_sys_finale/features/home/model/requisition.dart';
 import 'package:flutter/material.dart';
+import 'package:req_sys_finale/features/manage_profile/models/user_profile.dart';
 
 class RequisitionTab extends StatefulWidget {
   final String searchTerm;
@@ -39,7 +40,7 @@ class _RequisitionTabState extends State<RequisitionTab> {
       physics: const BouncingScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         final requisition = filteredUsers[index];
-        return RequisitionCard(requisition: requisition);
+        return RequisitionCard(requisition: requisition,);
       },
     );
   }
