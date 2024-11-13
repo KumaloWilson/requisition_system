@@ -10,24 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # Step 2: Set up Flutter environment
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 'stable'
 
+      # Step 3: Verify Flutter version
+      - name: Verify Flutter installation
+        run: flutter --version
+
+      # Step 4: Install Flutter dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # Step 5: Build Flutter web app
       - name: Build Flutter web
         run: flutter build web
 
+      # Step 6: Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_REQUISITION_SYSTEM_FINALE }}"
-          channelId: live
           projectId: requisition-system-finale
+          channelId: live
+
+      # Optional: Cache Flutter dependencies for faster builds
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-flutter-pub-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-pub-
