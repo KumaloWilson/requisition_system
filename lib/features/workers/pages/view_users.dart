@@ -88,7 +88,7 @@ class AdminViewUsers extends ConsumerWidget {
                                 },
                               ),
                               buildPopUpOption(
-                                  title: 'Add Shift',
+                                  title: 'Add Requisition',
                                   icon: Icons.calendar_month,
                                   value: 1,
                                   onTap: () => Get.toNamed(

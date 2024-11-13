@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
 import 'package:req_sys_finale/core/constants/color_constants.dart';
 import 'package:req_sys_finale/core/constants/local_image_constants.dart';
+import 'package:req_sys_finale/custom_widgets/custom_button/general_button.dart';
 import 'package:req_sys_finale/custom_widgets/text_fields/custom_text_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:req_sys_finale/features/home/model/requisition.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../core/constants/dimensions.dart';
+import '../../../core/routes/routes.dart';
 import '../../../core/utils/providers.dart';
 import '../../../custom_widgets/sidebar/user_drawer.dart';
 import '../../not_found/user_profile_not_found.dart';
@@ -132,15 +135,44 @@ class _UserHomeScreenState extends ConsumerState<UserHomeScreen>
                     const SizedBox(
                       height: 16,
                     ),
-                    CustomTextField(
-                      labelText: 'Find some Requisitions',
-                      prefixIcon: const Icon(Icons.search),
-                      controller: _searchController,
-                      onChanged: (value) {
-                        setState(() {
-                          searchTerm = value!;
-                        });
-                      },
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 15,
+                          child: CustomTextField(
+                            labelText: 'Find some Requisitions',
+                            prefixIcon: const Icon(Icons.search),
+                            controller: _searchController,
+                            onChanged: (value) {
+                              setState(() {
+                                searchTerm = value!;
+                              });
+                            },
+                          ),
+                        ),
+
+                        SizedBox(
+                          width: 20,
+                        ),
+
+                        Expanded(
+                          child: GeneralButton(
+                            onTap: (){
+                              Get.toNamed(
+                                  RoutesHelper.addRequisitionScreen,
+                                  arguments: [userProfileAsync.value]
+                              );
+                            },
+                            width: 200,
+                            borderRadius: 10,
+                            btnColor: Pallete.primaryColor,
+                            child: Icon(
+                              Icons.add,
+                              color: Pallete.whiteColor,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 ))),
