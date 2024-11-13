@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 16,
           ),
           const Text(
-            'Chinhoyi Town Council',
+            'CENTRAL AFRICAN FORGE',
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
