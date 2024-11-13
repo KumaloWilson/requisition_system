@@ -14,25 +14,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up Flutter environment
+      # Step 2: Set up Flutter manually
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 'stable'
+        run: |
+          # Install Flutter dependencies manually
+          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          echo "$GITHUB_ENV" >> $GITHUB_ENV
+          echo "FLUTTER_HOME=$PWD/flutter" >> $GITHUB_ENV
+          echo "$FLUTTER_HOME/bin" >> $GITHUB_PATH
+          flutter doctor
 
-      # Step 3: Verify Flutter version
-      - name: Verify Flutter installation
-        run: flutter --version
-
-      # Step 4: Install Flutter dependencies
+      # Step 3: Install Flutter dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 5: Build Flutter web app
+      # Step 4: Build Flutter web app
       - name: Build Flutter web
         run: flutter build web
 
-      # Step 6: Deploy to Firebase Hosting
+      # Step 5: Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -41,7 +41,7 @@ jobs:
           projectId: requisition-system-finale
           channelId: live
 
-      # Optional: Cache Flutter dependencies for faster builds
+      # Optional: Cache Flutter dependencies
       - name: Cache Flutter dependencies
         uses: actions/cache@v2
         with:
